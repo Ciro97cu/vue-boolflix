@@ -11,6 +11,7 @@
           type="text"
           placeholder="Search"
           v-model="userInput"
+          @keyup.enter="$emit('search', userInput)"
         />
         <button
           class="btn btn-outline-danger"
@@ -31,6 +32,7 @@ export default {
       userInput: "",
     };
   },
+  methods: {},
 };
 </script>
 

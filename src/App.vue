@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <HeaderNetflix @search="searchByUserInput" />
-    <MainNetflix :arrayFilm="arrayFilm" />
+    <MainNetflix :arrayFilm="arrayFilm" :arraySerie="arraySerie" />
   </div>
 </template>
 
@@ -18,23 +18,36 @@ export default {
   },
   data() {
     return {
-      userInput: "",
       arrayFilm: [],
+      arraySerie: [],
     };
   },
   methods: {
-    searchByUserInput: function (value) {
-      this.userInput = value;
+    searchByUserInput: function (userValue) {
+      this.axiosCallMovie(userValue);
+      this.axiosCallSerie(userValue);
+    },
+    axiosCallMovie: function (userValue) {
+      this.axiosCall(userValue, "movie");
+    },
+    axiosCallSerie: function (userValue) {
+      this.axiosCall(userValue, "tv");
+    },
+    axiosCall: function (userValue, genre) {
       let params = {
-        query: this.userInput,
+        query: userValue,
         api_key: "9201fa49e3908287134d73020110ef7f",
         language: "it-IT",
       };
       axios
-        .get("https://api.themoviedb.org/3/search/" + "movie", { params })
+        .get("https://api.themoviedb.org/3/search/" + genre, { params })
         .then((response) => {
           console.log(response.data.results);
-          this.arrayFilm = response.data.results;
+          if (genre === "movie") {
+            this.arrayFilm = response.data.results;
+          } else {
+            this.arraySerie = response.data.results;
+          }
         });
     },
   },
