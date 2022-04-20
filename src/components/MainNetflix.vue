@@ -39,9 +39,6 @@ export default {
       }
       return `https://www.kidlink.org/icons/f0-${region}.gif`;
     },
-    displayLanguage: function () {
-      return "ciaoooooooooooo";
-    },
   },
 };
 </script>
