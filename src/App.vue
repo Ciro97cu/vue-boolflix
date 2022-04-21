@@ -9,6 +9,7 @@
 import HeaderNetflix from "./components/HeaderNetflix.vue";
 import MainNetflix from "./components/MainNetflix.vue";
 import axios from "axios";
+import api from "./api.json";
 
 export default {
   name: "App",
@@ -20,6 +21,7 @@ export default {
     return {
       arrayFilm: [],
       arraySerie: [],
+      api: api.api,
     };
   },
   methods: {
@@ -36,7 +38,7 @@ export default {
     axiosCall: function (userValue, genre) {
       let params = {
         query: userValue,
-        api_key: "9201fa49e3908287134d73020110ef7f",
+        api_key: this.api,
         language: "it-IT",
       };
       axios
