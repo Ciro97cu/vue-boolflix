@@ -16,8 +16,20 @@
           :alt="item.original_language"
         />
       </div>
-
-      <p>Voto: {{ item.vote_average }}</p>
+      <div>
+        Voto:
+        <font-awesome-icon
+          icon="fa-solid fa-star"
+          class="yellow_star"
+          v-for="star in Math.ceil(item.vote_average / 2)"
+          :key="'ifull' + star"
+        />
+        <font-awesome-icon
+          icon="fa-regular fa-star"
+          v-for="star in 5 - Math.ceil(item.vote_average / 2)"
+          :key="'iempty' + star"
+        />
+      </div>
     </div>
   </div>
 </template>

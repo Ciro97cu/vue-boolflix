@@ -16,21 +16,20 @@
           :alt="item.original_language"
         />
       </div>
-
-      <p>
-        Voto: {{ displayStars(item.vote_average) }}
+      <div>
+        Voto:
         <font-awesome-icon
           icon="fa-solid fa-star"
           class="yellow_star"
-          v-for="star in yellowStar"
-          :key="star"
+          v-for="star in Math.ceil(item.vote_average / 2)"
+          :key="'ifull' + star"
         />
         <font-awesome-icon
           icon="fa-regular fa-star"
-          v-for="star in emptyStar"
-          :key="star"
+          v-for="star in 5 - Math.ceil(item.vote_average / 2)"
+          :key="'iempty' + star"
         />
-      </p>
+      </div>
     </div>
   </div>
 </template>
@@ -40,12 +39,6 @@ export default {
   name: "FilmList",
   props: {
     arrayFilm: Array,
-  },
-  data() {
-    return {
-      yellowStar: null,
-      emptyStar: null,
-    };
   },
   methods: {
     displayFlags: function (region) {
@@ -66,10 +59,6 @@ export default {
     },
     displayDefaultImage: function (e) {
       e.target.src = "https://bioessencegroup.com/assets/uploads/no-image.png";
-    },
-    displayStars: function (vote) {
-      this.yellowStar = Math.ceil(vote / 2);
-      this.emptyStar = 5 - Math.ceil(vote / 2);
     },
   },
 };
