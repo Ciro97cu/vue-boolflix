@@ -11,14 +11,9 @@
           type="text"
           placeholder="Search"
           v-model="userInput"
-          @keyup.enter="$emit('search', userInput)"
+          @keyup.enter="search"
         />
-        <button
-          class="btn btn-outline-danger"
-          @click="$emit('search', userInput)"
-        >
-          Search
-        </button>
+        <button class="btn btn-outline-danger" @click="search">Search</button>
       </div>
     </div>
   </nav>
@@ -32,7 +27,12 @@ export default {
       userInput: "",
     };
   },
-  methods: {},
+  methods: {
+    search: function () {
+      this.$emit("search", this.userInput);
+      this.userInput = "";
+    },
+  },
 };
 </script>
 
