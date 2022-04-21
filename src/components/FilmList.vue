@@ -20,7 +20,7 @@
         Voto:
         <font-awesome-icon
           icon="fa-solid fa-star"
-          class="yellow_star"
+          class="text-warning"
           v-for="star in Math.ceil(item.vote_average / 2)"
           :key="'ifull' + star"
         />
@@ -74,10 +74,6 @@ export default {
   .main_title {
     font-size: 25px;
     font-weight: bold;
-  }
-
-  .yellow_star {
-    color: gold;
   }
 }
 </style>
