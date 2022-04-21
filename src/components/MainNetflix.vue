@@ -3,6 +3,12 @@
     <div class="container-sm p-5">
       <div class="row justify-content-center gap-3">
         <div class="col-sm-3 p-3" v-for="item in arrayFilm" :key="item.id">
+          <img
+            class="w-100"
+            :src="`https://image.tmdb.org/t/p/original${item.poster_path}`"
+            @error="displayDefaultImage"
+            alt="item.title"
+          />
           <p>Titolo: {{ item.title }}</p>
           <p>Titolo originale: {{ item.original_title }}</p>
           <img
@@ -12,6 +18,12 @@
           <p>Voto: {{ item.vote_average }}</p>
         </div>
         <div class="col-sm-3 p-3" v-for="item in arraySerie" :key="item.id">
+          <img
+            class="w-100"
+            :src="`https://image.tmdb.org/t/p/original${item.poster_path}`"
+            @error="displayDefaultImage"
+            alt="item.title"
+          />
           <p>Titolo: {{ item.name }}</p>
           <p>Titolo originale: {{ item.original_name }}</p>
           <img
@@ -47,14 +59,18 @@ export default {
       }
       return `https://www.kidlink.org/icons/f0-${region}.gif`;
     },
+    displayDefaultImage: function (e) {
+      e.target.src =
+        // "https://image.tmdb.org/t/p/w342/wwemzKWzjKYJFfCeiB57q3r4Bcm.png";
+        "https://bioessencegroup.com/assets/uploads/no-image.png";
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 main {
-  background-image: url(../assets/img/netflix-bg.png);
-  background-size: cover;
+  background-color: black;
   min-height: calc(100vh - 66px);
 
   .col-sm-3 {
