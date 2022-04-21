@@ -4,7 +4,6 @@
       <div class="wrapper_logo">
         <img class="w-100" src="../assets/img/Netflix.png" alt="netflix-logo" />
       </div>
-
       <div class="d-flex">
         <input
           class="form-control me-2"
