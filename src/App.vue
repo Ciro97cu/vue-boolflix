@@ -25,13 +25,7 @@ export default {
   },
   methods: {
     searchByUserInput: function (userValue) {
-      this.axiosCallMovie(userValue);
-      this.axiosCallSerie(userValue);
-    },
-    axiosCallMovie: function (userValue) {
       this.axiosCall(userValue, "movie");
-    },
-    axiosCallSerie: function (userValue) {
       this.axiosCall(userValue, "tv");
     },
     axiosCall: function (userValue, genre) {
