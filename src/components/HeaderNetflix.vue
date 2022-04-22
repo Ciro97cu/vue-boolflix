@@ -39,4 +39,8 @@ export default {
 .wrapper_logo {
   width: 50px;
 }
+
+.form-control:focus {
+  border-color: red;
+}
 </style>
