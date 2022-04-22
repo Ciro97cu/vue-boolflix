@@ -40,16 +40,18 @@ export default {
         api_key: api,
         language: "it-IT",
       };
-      axios
-        .get("https://api.themoviedb.org/3/search/" + genre, { params })
-        .then((response) => {
-          console.log(response.data.results);
-          if (genre === "movie") {
-            this.arrayFilm = response.data.results;
-          } else {
-            this.arraySerie = response.data.results;
-          }
-        });
+      if (userValue !== "") {
+        axios
+          .get("https://api.themoviedb.org/3/search/" + genre, { params })
+          .then((response) => {
+            console.log(response.data.results);
+            if (genre === "movie") {
+              this.arrayFilm = response.data.results;
+            } else {
+              this.arraySerie = response.data.results;
+            }
+          });
+      }
     },
   },
 };
