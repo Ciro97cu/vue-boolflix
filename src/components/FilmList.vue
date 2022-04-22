@@ -1,34 +1,40 @@
 <template>
-  <div class="row justify-content-center gap-3">
-    <div class="col-sm-3 p-3" v-for="item in arrayFilm" :key="item.id">
-      <img
-        class="w-100"
-        :src="`https://image.tmdb.org/t/p/original${item.poster_path}`"
-        @error="displayDefaultImage"
-        alt="item.title"
-      />
-      <p class="main_title">{{ item.title }}</p>
-      <p>Titolo originale: {{ item.original_title }}</p>
-      <div>
-        Lingua:
+  <div class="row justify-content-center gap-4">
+    <div class="col-sm-3" v-for="item in arrayFilm" :key="item.id">
+      <div class="wrapper_img">
         <img
-          :src="displayFlags(item.original_language)"
-          :alt="item.original_language"
+          class="w-100"
+          :src="handlePosterImage(item.poster_path)"
+          alt="item.title"
         />
       </div>
-      <div>
-        Voto:
-        <font-awesome-icon
-          icon="fa-solid fa-star"
-          class="text-warning"
-          v-for="star in Math.ceil(item.vote_average / 2)"
-          :key="'ifull' + star"
-        />
-        <font-awesome-icon
-          icon="fa-regular fa-star"
-          v-for="star in 5 - Math.ceil(item.vote_average / 2)"
-          :key="'iempty' + star"
-        />
+      <div class="wrapper_info">
+        <p class="main_title pb-2">{{ item.title }}</p>
+        <p class="pb-2">Titolo originale: {{ item.original_title }}</p>
+        <div class="pb-2">
+          Lingua:
+          <img
+            :src="displayFlags(item.original_language)"
+            :alt="item.original_language"
+          />
+        </div>
+        <div class="pb-2">
+          Voto:
+          <font-awesome-icon
+            icon="fa-solid fa-star"
+            class="text-warning"
+            v-for="star in Math.ceil(item.vote_average / 2)"
+            :key="'ifull' + star"
+          />
+          <font-awesome-icon
+            icon="fa-regular fa-star"
+            v-for="star in 5 - Math.ceil(item.vote_average / 2)"
+            :key="'iempty' + star"
+          />
+        </div>
+        <p>
+          {{ handleOverview(item.overview) }}
+        </p>
       </div>
     </div>
   </div>
@@ -57,8 +63,17 @@ export default {
           return `https://www.kidlink.org/icons/f0-${region}.gif`;
       }
     },
-    displayDefaultImage: function (e) {
-      e.target.src = "https://bioessencegroup.com/assets/uploads/no-image.png";
+    handlePosterImage: function (path) {
+      if (path === null) {
+        return "https://bioessencegroup.com/assets/uploads/no-image.png";
+      }
+      return `https://image.tmdb.org/t/p/original${path}`;
+    },
+    handleOverview: function (text) {
+      if (text === "") {
+        return "Overview not Available";
+      }
+      return `Overview: ${text}`;
     },
   },
 };
@@ -67,13 +82,28 @@ export default {
 <style lang="scss" scoped>
 .col-sm-3 {
   width: 30%;
-  background-color: rgba($color: #ccc, $alpha: 0.7);
+  background-color: black;
   color: white;
-  border: 1px solid white;
+  aspect-ratio: 2/3;
+  overflow-y: auto;
+  padding: 0;
 
   .main_title {
     font-size: 25px;
     font-weight: bold;
+  }
+
+  &:hover .wrapper_img {
+    display: none;
+  }
+
+  &:hover .wrapper_info {
+    display: block;
+    padding: 1rem;
+  }
+
+  .wrapper_info {
+    display: none;
   }
 }
 </style>

@@ -2,11 +2,11 @@
   <main>
     <div class="container-sm p-5">
       <div v-if="arrayFilm.length > 0" class="row justify-content-center p-4">
-        <h2 class="col-auto text-danger">FILM</h2>
+        <h2 class="col-auto text-danger bg-dark rounded-3">FILM</h2>
       </div>
       <FilmList :arrayFilm="arrayFilm" />
       <div v-if="arraySerie.length > 0" class="row justify-content-center p-4">
-        <h2 class="col-auto text-danger">SERIE TV</h2>
+        <h2 class="col-auto text-danger bg-dark rounded-3">SERIE TV</h2>
       </div>
       <SerieList :arraySerie="arraySerie" />
     </div>
@@ -32,7 +32,9 @@ export default {
 
 <style lang="scss" scoped>
 main {
-  background-color: black;
+  background-image: url("../assets/img/netflix-bg.jpg");
+  background-size: cover;
+  background-position: center;
   min-height: calc(100vh - 66px);
 }
 </style>

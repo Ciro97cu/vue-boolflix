@@ -9,7 +9,7 @@
 import HeaderNetflix from "./components/HeaderNetflix.vue";
 import MainNetflix from "./components/MainNetflix.vue";
 import axios from "axios";
-import api from "./api.json";
+import { api } from "./api.js";
 
 export default {
   name: "App",
@@ -21,7 +21,6 @@ export default {
     return {
       arrayFilm: [],
       arraySerie: [],
-      api: api.api,
     };
   },
   methods: {
@@ -38,7 +37,7 @@ export default {
     axiosCall: function (userValue, genre) {
       let params = {
         query: userValue,
-        api_key: this.api,
+        api_key: api,
         language: "it-IT",
       };
       axios
@@ -59,4 +58,17 @@ export default {
 <style lang="scss">
 @import "./assets/style/import.scss";
 @import "./assets/style/resets.scss";
+
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: black;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: lightgray;
+  border-radius: 20px;
+}
 </style>

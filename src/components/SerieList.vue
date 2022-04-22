@@ -1,10 +1,9 @@
 <template>
-  <div class="row justify-content-center gap-3">
+  <div class="row justify-content-center gap-4">
     <div class="col-sm-3 p-3" v-for="item in arraySerie" :key="item.id">
       <img
         class="w-100"
-        :src="`https://image.tmdb.org/t/p/original${item.poster_path}`"
-        @error="displayDefaultImage"
+        :src="handlePosterImage(item.poster_path)"
         alt="item.title"
       />
       <p class="main_title">{{ item.name }}</p>
@@ -57,8 +56,11 @@ export default {
           return `https://www.kidlink.org/icons/f0-${region}.gif`;
       }
     },
-    displayDefaultImage: function (e) {
-      e.target.src = "https://bioessencegroup.com/assets/uploads/no-image.png";
+    handlePosterImage: function (path) {
+      if (path === null) {
+        return "https://bioessencegroup.com/assets/uploads/no-image.png";
+      }
+      return `https://image.tmdb.org/t/p/original${path}`;
     },
   },
 };
