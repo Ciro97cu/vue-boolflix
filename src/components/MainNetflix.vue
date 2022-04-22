@@ -2,11 +2,31 @@
   <main>
     <div class="container-sm p-5">
       <div v-if="arrayFilm.length > 0" class="row justify-content-center p-4">
-        <h2 class="col-auto text-danger bg-dark rounded-3">FILM</h2>
+        <h2
+          class="
+            col-auto
+            text-danger
+            bg-dark
+            rounded-3
+            border border-2 border-danger
+          "
+        >
+          FILM
+        </h2>
       </div>
       <FilmList :arrayFilm="arrayFilm" />
       <div v-if="arraySerie.length > 0" class="row justify-content-center p-4">
-        <h2 class="col-auto text-danger bg-dark rounded-3">SERIE TV</h2>
+        <h2
+          class="
+            col-auto
+            text-danger
+            bg-dark
+            rounded-3
+            border border-2 border-danger
+          "
+        >
+          SERIE TV
+        </h2>
       </div>
       <SerieList :arraySerie="arraySerie" />
     </div>

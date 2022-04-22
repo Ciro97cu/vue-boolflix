@@ -3,7 +3,7 @@
     <div class="col-sm-3" v-for="item in arrayFilm" :key="item.id">
       <div class="wrapper_img">
         <img
-          class="w-100"
+          class="image_dimensions"
           :src="handlePosterImage(item.poster_path)"
           alt="item.title"
         />
@@ -87,6 +87,13 @@ export default {
   aspect-ratio: 2/3;
   overflow-y: auto;
   padding: 0;
+  border-radius: 10px;
+
+  .image_dimensions {
+    width: 100%;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+  }
 
   .main_title {
     font-size: 25px;
