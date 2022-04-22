@@ -10,7 +10,9 @@
       </div>
       <div class="wrapper_info">
         <p class="main_title">{{ item.name }}</p>
-        <p class="pb-2">Titolo originale: {{ item.original_name }}</p>
+        <p v-if="!controlOriginal" class="pb-2">
+          {{ handleOriginalTitle(item.original_name, item.name) }}
+        </p>
         <div class="pb-2">
           Lingua:
           <img
@@ -46,6 +48,11 @@ export default {
   props: {
     arraySerie: Array,
   },
+  data() {
+    return {
+      controlOriginal: false,
+    };
+  },
   methods: {
     displayFlags: function (region) {
       switch (region) {
@@ -74,6 +81,12 @@ export default {
         return "Overview not Available";
       }
       return `Overview: ${text}`;
+    },
+    handleOriginalTitle: function (original, notOriginal) {
+      if (original === notOriginal) {
+        return (this.controlOriginal = true);
+      }
+      return original;
     },
   },
 };
