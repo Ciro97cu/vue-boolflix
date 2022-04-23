@@ -1,6 +1,6 @@
 <template>
   <div class="card_netflix">
-    <div class="wrapper_img">
+    <div class="wrapper_img h-100" @mouseover="handleHover()" v-if="hoverCard">
       <img
         v-if="poster !== null"
         class="image_dimensions"
@@ -14,7 +14,7 @@
         alt="no-image"
       />
     </div>
-    <div class="wrapper_info">
+    <div class="wrapper_info h-100 p-2" @mouseleave="handleHover()" v-else>
       <p class="main_title pb-2">{{ title }}</p>
       <p v-if="originalTitle !== title" class="pb-2">
         Original Title : {{ originalTitle }}
@@ -61,6 +61,11 @@ export default {
     overview: String,
     id: Number,
   },
+  data() {
+    return {
+      hoverCard: true,
+    };
+  },
   methods: {
     displayFlags: function (region) {
       switch (region) {
@@ -77,6 +82,9 @@ export default {
         default:
           return `https://www.kidlink.org/icons/f0-${region}.gif`;
       }
+    },
+    handleHover: function () {
+      this.hoverCard = !this.hoverCard;
     },
     // displayActors: function (id) {
     //   let params = {
@@ -112,19 +120,6 @@ export default {
   .main_title {
     font-size: 25px;
     font-weight: 400;
-  }
-
-  &:hover .wrapper_img {
-    display: none;
-  }
-
-  &:hover .wrapper_info {
-    display: block;
-    padding: 1rem;
-  }
-
-  .wrapper_info {
-    display: none;
   }
 }
 </style>
