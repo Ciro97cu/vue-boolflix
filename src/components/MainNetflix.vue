@@ -14,7 +14,19 @@
           FILM
         </h2>
       </div>
-      <FilmList :arrayFilm="arrayFilm" />
+      <div class="row justify-content-center gap-4">
+        <CardNetflix
+          v-for="item in arrayFilm"
+          :key="item.id"
+          :poster="item.poster_path"
+          :title="item.title"
+          :originalTitle="item.original_title"
+          :language="item.original_language"
+          :vote="item.vote_average"
+          :overview="item.overview"
+          :id="item.id"
+        />
+      </div>
       <div v-if="arraySerie.length > 0" class="row justify-content-center p-4">
         <h2
           class="
@@ -28,20 +40,30 @@
           SERIE TV
         </h2>
       </div>
-      <SerieList :arraySerie="arraySerie" />
+      <div class="row justify-content-center gap-4">
+        <CardNetflix
+          v-for="item in arraySerie"
+          :key="item.id"
+          :poster="item.poster_path"
+          :title="item.name"
+          :originalTitle="item.original_name"
+          :language="item.original_language"
+          :vote="item.vote_average"
+          :overview="item.overview"
+          :id="item.id"
+        />
+      </div>
     </div>
   </main>
 </template>
 
 <script>
-import FilmList from "./FilmList.vue";
-import SerieList from "./SerieList.vue";
+import CardNetflix from "./CardNetflix.vue";
 
 export default {
   name: "MainNetflix",
   components: {
-    FilmList,
-    SerieList,
+    CardNetflix,
   },
   props: {
     arrayFilm: Array,

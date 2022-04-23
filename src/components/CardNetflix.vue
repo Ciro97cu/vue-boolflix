@@ -1,44 +1,39 @@
 <template>
-  <div class="row justify-content-center gap-4">
-    <div class="col-sm-3" v-for="item in arrayFilm" :key="item.id">
-      <div class="wrapper_img">
-        <img
-          class="image_dimensions"
-          :src="handlePosterImage(item.poster_path)"
-          alt="item.title"
+  <div class="card_netflix">
+    <div class="wrapper_img">
+      <img
+        class="image_dimensions"
+        :src="handlePosterImage(poster)"
+        :alt="title"
+      />
+    </div>
+    <div class="wrapper_info">
+      <p class="main_title pb-2">{{ title }}</p>
+      <p v-if="originalTitle !== title" class="pb-2">
+        Original Title : {{ originalTitle }}
+      </p>
+      <div class="pb-2">
+        Lingua:
+        <img :src="displayFlags(language)" :alt="language" />
+      </div>
+      <div class="pb-2">
+        Voto:
+        <font-awesome-icon
+          icon="fa-solid fa-star"
+          class="text-warning"
+          v-for="star in Math.ceil(vote / 2)"
+          :key="'ifull' + star"
+        />
+        <font-awesome-icon
+          icon="fa-regular fa-star"
+          v-for="star in 5 - Math.ceil(vote / 2)"
+          :key="'iempty' + star"
         />
       </div>
-      <div class="wrapper_info">
-        <p class="main_title pb-2">{{ item.title }}</p>
-        <p v-if="!controlOriginal" class="pb-2">
-          {{ handleOriginalTitle(item.original_title, item.title) }}
-        </p>
-        <div class="pb-2">
-          Lingua:
-          <img
-            :src="displayFlags(item.original_language)"
-            :alt="item.original_language"
-          />
-        </div>
-        <div class="pb-2">
-          Voto:
-          <font-awesome-icon
-            icon="fa-solid fa-star"
-            class="text-warning"
-            v-for="star in Math.ceil(item.vote_average / 2)"
-            :key="'ifull' + star"
-          />
-          <font-awesome-icon
-            icon="fa-regular fa-star"
-            v-for="star in 5 - Math.ceil(item.vote_average / 2)"
-            :key="'iempty' + star"
-          />
-        </div>
-        <p>
-          {{ handleOverview(item.overview) }}
-        </p>
-        <!-- <p>{{ displayActors(item.id) }}</p> -->
-      </div>
+      <p>
+        {{ handleOverview(overview) }}
+      </p>
+      <!-- <p>{{ displayActors(.id) }}</p> -->
     </div>
   </div>
 </template>
@@ -48,10 +43,15 @@
 // import { api } from "../api.js";
 
 export default {
-  name: "FilmList",
+  name: "CardNetflix",
   props: {
-    arrayFilm: Array,
-    // arrayId: Array,
+    poster: String,
+    title: String,
+    originalTitle: String,
+    language: String,
+    vote: Number,
+    overview: String,
+    id: Number,
   },
   data() {
     return {
@@ -75,23 +75,17 @@ export default {
           return `https://www.kidlink.org/icons/f0-${region}.gif`;
       }
     },
-    handlePosterImage: function (path) {
-      if (path === null) {
-        return "https://bioessencegroup.com/assets/uploads/no-image.png";
-      }
-      return `https://image.tmdb.org/t/p/original${path}`;
-    },
     handleOverview: function (text) {
       if (text === "") {
         return "Overview not Available";
       }
       return `Overview: ${text}`;
     },
-    handleOriginalTitle: function (original, notOriginal) {
-      if (original === notOriginal) {
-        return (this.controlOriginal = true);
+    handlePosterImage: function (path) {
+      if (path === null) {
+        return "https://bioessencegroup.com/assets/uploads/no-image.png";
       }
-      return original;
+      return `https://image.tmdb.org/t/p/original${path}`;
     },
     // displayActors: function (id) {
     //   let params = {
@@ -109,7 +103,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.col-sm-3 {
+.card_netflix {
   width: 30%;
   background-color: black;
   color: white;
