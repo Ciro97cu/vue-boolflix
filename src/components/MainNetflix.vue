@@ -53,8 +53,6 @@ export default {
 <style lang="scss" scoped>
 main {
   background-image: url("../assets/img/netflix-bg.jpg");
-  background-size: cover;
-  background-position: center;
   min-height: calc(100vh - 66px);
 }
 </style>

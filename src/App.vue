@@ -55,6 +55,10 @@ export default {
 @import "./assets/style/import.scss";
 @import "./assets/style/resets.scss";
 
+* {
+  font-family: "Bebas Neue";
+}
+
 *::-webkit-scrollbar {
   width: 8px;
 }

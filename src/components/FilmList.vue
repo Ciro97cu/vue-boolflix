@@ -37,16 +37,21 @@
         <p>
           {{ handleOverview(item.overview) }}
         </p>
+        <!-- <p>{{ displayActors(item.id) }}</p> -->
       </div>
     </div>
   </div>
 </template>
 
 <script>
+// import axios from "axios";
+// import { api } from "../api.js";
+
 export default {
   name: "FilmList",
   props: {
     arrayFilm: Array,
+    // arrayId: Array,
   },
   data() {
     return {
@@ -88,6 +93,17 @@ export default {
       }
       return original;
     },
+    // displayActors: function (id) {
+    //   let params = {
+    //     api_key: api,
+    //     language: "it-IT",
+    //   };
+    //   axios
+    //     .get(`https://api.themoviedb.org/3/movie/${id}/credits`, { params })
+    //     .then((response) => {
+    //       console.log(response.data.cast);
+    //     });
+    // },
   },
 };
 </script>
@@ -110,7 +126,7 @@ export default {
 
   .main_title {
     font-size: 25px;
-    font-weight: bold;
+    font-weight: 400;
   }
 
   &:hover .wrapper_img {

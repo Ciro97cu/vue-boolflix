@@ -42,5 +42,6 @@ export default {
 
 .form-control:focus {
   border-color: red;
+  box-shadow: 0 0 0 0.25rem rgb(253 91 13 / 25%);
 }
 </style>

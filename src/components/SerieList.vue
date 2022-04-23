@@ -110,7 +110,7 @@ export default {
 
   .main_title {
     font-size: 25px;
-    font-weight: bold;
+    font-weight: 400;
   }
 
   &:hover .wrapper_img {
