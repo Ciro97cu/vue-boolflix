@@ -2,9 +2,16 @@
   <div class="card_netflix">
     <div class="wrapper_img">
       <img
+        v-if="poster !== null"
         class="image_dimensions"
-        :src="handlePosterImage(poster)"
+        :src="`https://image.tmdb.org/t/p/original${poster}`"
         :alt="title"
+      />
+      <img
+        v-else
+        class="image_dimensions"
+        src="https://bioessencegroup.com/assets/uploads/no-image.png"
+        alt="no-image"
       />
     </div>
     <div class="wrapper_info">
@@ -70,12 +77,6 @@ export default {
         default:
           return `https://www.kidlink.org/icons/f0-${region}.gif`;
       }
-    },
-    handlePosterImage: function (path) {
-      if (path === null) {
-        return "https://bioessencegroup.com/assets/uploads/no-image.png";
-      }
-      return `https://image.tmdb.org/t/p/original${path}`;
     },
     // displayActors: function (id) {
     //   let params = {
