@@ -1,6 +1,6 @@
 <template>
   <main>
-    <div class="container-sm p-5">
+    <div class="container-fluid p-5">
       <div v-if="arrayFilm.length > 0" class="row justify-content-center p-4">
         <h2
           class="
@@ -52,7 +52,7 @@ export default {
 
 <style lang="scss" scoped>
 main {
-  background-image: url("../assets/img/netflix-bg.jpg");
+  background-color: #141414;
   min-height: calc(100vh - 66px);
 }
 </style>
