@@ -30,9 +30,10 @@
           :key="'iempty' + star"
         />
       </div>
-      <p>
-        {{ handleOverview(overview) }}
-      </p>
+      <div>
+        <p v-if="overview !== ''">Overview: {{ overview }}</p>
+        <p v-else>Overview not available</p>
+      </div>
       <!-- <p>{{ displayActors(.id) }}</p> -->
     </div>
   </div>
@@ -53,11 +54,6 @@ export default {
     overview: String,
     id: Number,
   },
-  data() {
-    return {
-      controlOriginal: false,
-    };
-  },
   methods: {
     displayFlags: function (region) {
       switch (region) {
@@ -74,12 +70,6 @@ export default {
         default:
           return `https://www.kidlink.org/icons/f0-${region}.gif`;
       }
-    },
-    handleOverview: function (text) {
-      if (text === "") {
-        return "Overview not Available";
-      }
-      return `Overview: ${text}`;
     },
     handlePosterImage: function (path) {
       if (path === null) {
