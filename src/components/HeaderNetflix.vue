@@ -2,7 +2,11 @@
   <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
       <div class="wrapper_logo">
-        <img class="w-100" src="../assets/img/Netflix.png" alt="netflix-logo" />
+        <img
+          class="w-100"
+          src="../assets/img/boolflix.png"
+          alt="netflix-logo"
+        />
       </div>
       <div class="d-flex">
         <input
@@ -37,7 +41,7 @@ export default {
 
 <style lang="scss" scoped>
 .wrapper_logo {
-  width: 50px;
+  width: 150px;
 }
 
 .form-control:focus {
