@@ -1,6 +1,13 @@
 <template>
   <div class="card_netflix">
-    <div class="wrapper_img h-100" @mouseover="handleHover()" v-if="hoverCard">
+    <div
+      class="wrapper_img h-100"
+      @mouseover="
+        handleHover();
+        handleActors(id, type);
+      "
+      v-if="hoverCard"
+    >
       <img
         v-if="poster !== null"
         class="image_dimensions"
@@ -38,10 +45,18 @@
         />
       </div>
       <div class="pb-2">
-        <p v-if="overview !== ''">Overview: {{ overview }}</p>
+        <p v-if="overview !== ''">Descrizione: {{ overview }}</p>
         <p v-else>Descrizione non disponibile</p>
       </div>
-      <p>Attori: {{ displayActors(id, type) }}</p>
+      <div>
+        <div v-if="arrayActors.length > 0">
+          Attori:
+          <span v-for="(actor, i) in arrayActors" :key="i">
+            {{ actor.name }},
+          </span>
+        </div>
+        <p v-else>Attori non disponibili</p>
+      </div>
     </div>
   </div>
 </template>
@@ -85,6 +100,9 @@ export default {
     handleHover: function () {
       this.hoverCard = !this.hoverCard;
     },
+    handleActors: function (id, type) {
+      this.displayActors(id, type);
+    },
     displayActors: function (id, type) {
       let params = {
         api_key: this.$api,
@@ -93,19 +111,8 @@ export default {
       this.$axios
         .get(`https://api.themoviedb.org/3/${type}/${id}/credits`, { params })
         .then((response) => {
-          console.log(response.data.cast);
-          if (response.data.cast.length > 0) {
-            for (let i = 0; i < 5; i++) {
-              if (!this.arrayActors.includes(response.data.cast[i].name)) {
-                this.arrayActors.push(response.data.cast[i].name);
-              }
-            }
-          }
+          this.arrayActors = response.data.cast.slice(0, 5);
         });
-      if (this.arrayActors.length === 0) {
-        return "Attori non disponibili";
-      }
-      return this.arrayActors.join(", ");
     },
   },
 };
