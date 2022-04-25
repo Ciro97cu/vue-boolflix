@@ -58,11 +58,27 @@ export default {
       api_key: this.$api,
       language: "it-IT",
     };
+
     this.$axios
-      .get(`https://api.themoviedb.org/3/genre/movie/list`, { params })
-      .then((response) => {
-        this.arrayGenre = response.data.genres;
-      });
+      .all([
+        this.$axios.get(`https://api.themoviedb.org/3/genre/movie/list`, {
+          params,
+        }),
+
+        this.$axios.get(`https://api.themoviedb.org/3/genre/tv/list`, {
+          params,
+        }),
+      ])
+      .then(
+        this.$axios.spread((resMovie, resTv) => {
+          let ids = new Set(resMovie.data.genres.map((d) => d.id));
+          let merged = [
+            ...resMovie.data.genres,
+            ...resTv.data.genres.filter((d) => !ids.has(d.id)),
+          ];
+          this.arrayGenre = merged;
+        })
+      );
   },
 };
 </script>
