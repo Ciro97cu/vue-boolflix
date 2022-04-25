@@ -37,19 +37,16 @@
           :key="'iempty' + star"
         />
       </div>
-      <div>
+      <div class="pb-2">
         <p v-if="overview !== ''">Overview: {{ overview }}</p>
-        <p v-else>Overview not available</p>
+        <p v-else>Descrizione non disponibile</p>
       </div>
-      <!-- <p>{{ displayActors(.id) }}</p> -->
+      <p>Attori: {{ displayActors(id, type) }}</p>
     </div>
   </div>
 </template>
 
 <script>
-// import axios from "axios";
-// import { api } from "../api.js";
-
 export default {
   name: "CardNetflix",
   props: {
@@ -60,10 +57,12 @@ export default {
     vote: Number,
     overview: String,
     id: Number,
+    type: String,
   },
   data() {
     return {
       hoverCard: true,
+      arrayActors: [],
     };
   },
   methods: {
@@ -86,17 +85,28 @@ export default {
     handleHover: function () {
       this.hoverCard = !this.hoverCard;
     },
-    // displayActors: function (id) {
-    //   let params = {
-    //     api_key: api,
-    //     language: "it-IT",
-    //   };
-    //   axios
-    //     .get(`https://api.themoviedb.org/3/movie/${id}/credits`, { params })
-    //     .then((response) => {
-    //       console.log(response.data.cast);
-    //     });
-    // },
+    displayActors: function (id, type) {
+      let params = {
+        api_key: this.$api,
+        language: "it-IT",
+      };
+      this.$axios
+        .get(`https://api.themoviedb.org/3/${type}/${id}/credits`, { params })
+        .then((response) => {
+          console.log(response.data.cast);
+          if (response.data.cast.length > 0) {
+            for (let i = 0; i < 5; i++) {
+              if (!this.arrayActors.includes(response.data.cast[i].name)) {
+                this.arrayActors.push(response.data.cast[i].name);
+              }
+            }
+          }
+        });
+      if (this.arrayActors.length === 0) {
+        return "Attori non disponibili";
+      }
+      return this.arrayActors.join(", ");
+    },
   },
 };
 </script>

@@ -1,15 +1,16 @@
 <template>
   <div id="app">
-    <HeaderNetflix @search="searchByUserInput" />
-    <MainNetflix :arrayFilm="arrayFilm" :arraySerie="arraySerie" />
+    <HeaderNetflix @search="searchByUserInput" @searchByGenre="handleGenre" />
+    <MainNetflix
+      :arrayFilm="filterBySelectMovie"
+      :arraySerie="filterBySelectTv"
+    />
   </div>
 </template>
 
 <script>
 import HeaderNetflix from "./components/HeaderNetflix.vue";
 import MainNetflix from "./components/MainNetflix.vue";
-import axios from "axios";
-import { api } from "./api.js";
 
 export default {
   name: "App",
@@ -21,6 +22,7 @@ export default {
     return {
       arrayFilm: [],
       arraySerie: [],
+      userSelect: null,
     };
   },
   methods: {
@@ -31,14 +33,13 @@ export default {
     axiosCall: function (userValue, genre) {
       let params = {
         query: userValue,
-        api_key: api,
+        api_key: this.$api,
         language: "it-IT",
       };
       if (userValue !== "") {
-        axios
+        this.$axios
           .get("https://api.themoviedb.org/3/search/" + genre, { params })
           .then((response) => {
-            console.log(response.data.results);
             if (genre === "movie") {
               this.arrayFilm = response.data.results;
             } else {
@@ -46,6 +47,27 @@ export default {
             }
           });
       }
+    },
+    handleGenre: function (value) {
+      this.userSelect = value;
+    },
+  },
+  computed: {
+    filterBySelectMovie: function () {
+      if (this.userSelect == null || this.userSelect == 0) {
+        return this.arrayFilm;
+      }
+      return this.arrayFilm.filter((element) =>
+        element.genre_ids.includes(this.userSelect)
+      );
+    },
+    filterBySelectTv: function () {
+      if (this.userSelect == null || this.userSelect == 0) {
+        return this.arraySerie;
+      }
+      return this.arraySerie.filter((element) =>
+        element.genre_ids.includes(this.userSelect)
+      );
     },
   },
 };

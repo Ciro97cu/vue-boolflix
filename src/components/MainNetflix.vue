@@ -25,6 +25,7 @@
           :vote="item.vote_average"
           :overview="item.overview"
           :id="item.id"
+          :type="'movie'"
         />
       </div>
       <div v-if="arraySerie.length > 0" class="row justify-content-center p-4">
@@ -51,6 +52,7 @@
           :vote="item.vote_average"
           :overview="item.overview"
           :id="item.id"
+          :type="'tv'"
         />
       </div>
     </div>

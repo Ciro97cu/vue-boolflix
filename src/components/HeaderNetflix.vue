@@ -8,6 +8,19 @@
           alt="netflix-logo"
         />
       </div>
+      <div>
+        <p class="d-inline-block text-white pe-3">Filtra per genere</p>
+        <select
+          name="genre"
+          id="genre"
+          @change="$emit('searchByGenre', genreName($event))"
+        >
+          <option :value="0">All</option>
+          <option v-for="(genre, i) in arrayGenre" :key="i" :value="genre.id">
+            {{ genre.name }}
+          </option>
+        </select>
+      </div>
       <div class="d-flex">
         <input
           class="form-control me-2"
@@ -28,6 +41,7 @@ export default {
   data() {
     return {
       userInput: "",
+      arrayGenre: [],
     };
   },
   methods: {
@@ -35,6 +49,20 @@ export default {
       this.$emit("search", this.userInput);
       this.userInput = "";
     },
+    genreName: function (event) {
+      return parseInt(event.target.value);
+    },
+  },
+  created() {
+    let params = {
+      api_key: this.$api,
+      language: "it-IT",
+    };
+    this.$axios
+      .get(`https://api.themoviedb.org/3/genre/movie/list`, { params })
+      .then((response) => {
+        this.arrayGenre = response.data.genres;
+      });
   },
 };
 </script>

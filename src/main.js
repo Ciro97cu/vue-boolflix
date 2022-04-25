@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
+import axios from "axios";
+import { api } from "./api.js";
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 
@@ -11,6 +13,8 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 library.add(fasol, fareg)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.prototype.$axios = axios;
+Vue.prototype.$api = api;
 
 Vue.config.productionTip = false
 
