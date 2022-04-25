@@ -12,11 +12,11 @@
         <input
           class="form-control me-2"
           type="text"
-          placeholder="Search"
+          placeholder="Cerca"
           v-model="userInput"
           @keyup.enter="search"
         />
-        <button class="btn btn-outline-danger" @click="search">Search</button>
+        <button class="btn btn-outline-danger" @click="search">Cerca</button>
       </div>
     </div>
   </nav>
