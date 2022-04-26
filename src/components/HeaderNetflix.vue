@@ -85,8 +85,7 @@ export default {
             ...resMovie.data.genres,
             ...resTv.data.genres.filter((d) => !ids.has(d.id)),
           ];
-          let filtered = merged.sort(this.sortArrayGenre);
-          this.arrayGenre = filtered;
+          this.arrayGenre = merged.sort(this.sortArrayGenre);
         })
       );
   },
