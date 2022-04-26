@@ -52,6 +52,15 @@ export default {
     genreName: function (event) {
       return parseInt(event.target.value);
     },
+    sortArrayGenre: function (x, y) {
+      if (x.name < y.name) {
+        return -1;
+      }
+      if (x.name > y.name) {
+        return 1;
+      }
+      return 0;
+    },
   },
   created() {
     let params = {
@@ -76,7 +85,8 @@ export default {
             ...resMovie.data.genres,
             ...resTv.data.genres.filter((d) => !ids.has(d.id)),
           ];
-          this.arrayGenre = merged;
+          let filtered = merged.sort(this.sortArrayGenre);
+          this.arrayGenre = filtered;
         })
       );
   },
